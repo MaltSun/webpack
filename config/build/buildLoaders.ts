@@ -5,16 +5,28 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin"
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     const isDev = options.mode === 'development'
 
+    const cssLoaderWithModules = {
+
+        loader: "css-loader",
+        options: {
+            modules: {
+                localIdentName: isDev ? '[path][name]__[local]' : '[hash:base64:8]'
+            }
+        }
+
+    }
+
     return [
         //работа с scss
         {
             test: /\.s[ac]ss$/i,
             use: [
-                // Creates `style` nodes from JS strings
                 //"style-loader",
-               isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+                isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+
                 // Translates CSS into CommonJS
-                "css-loader",
+                cssLoaderWithModules,
+
                 // Compiles Sass to CSS
                 "sass-loader",
             ],
