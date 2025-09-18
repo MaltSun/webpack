@@ -1,7 +1,8 @@
 import { ModuleOptions } from "webpack";
 import { BuildOptions } from "./types/types";
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-
+import { before } from "node:test";
+import ReactRefreshTypeScript from 'react-refresh-typescript'
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     const isDev = options.mode === 'development'
 
@@ -25,6 +26,9 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
             //чтобы просто сибирал ts, но не типизировал статически
             options: {
                 transpileOnly: true,
+                getCustomTransformers:()=>({
+                    before: [isDev && ReactRefreshTypeScript()].filter(Boolean)
+                })
             }
         }], 
         exclude: /node_modules/, //указывается то, что не обрабатывается

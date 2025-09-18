@@ -3,6 +3,7 @@ import { BuildOptions } from "./types/types";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
+import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 
 
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -21,10 +22,13 @@ export function buildPlugins({ mode, platform, paths, analyzer }: BuildOptions):
 
     if (isDev) {
         // plugins.push(new webpack.ProgressPlugin())
-        
+
         //проверка типов остается,
         // но она вынесена в отдельный процесс
-        new ForkTsCheckerWebpackPlugin()
+        plugins.push(new ForkTsCheckerWebpackPlugin())
+        
+        //чтобы норм обновлялось без перезагрузки
+        plugins.push(new ReactRefreshPlugin())
     }
 
     if (isProd) {
