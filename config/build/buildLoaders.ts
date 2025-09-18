@@ -20,7 +20,13 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         //если бы не настроила работу с ts,
         //то надо было бы доп. описывать лоадер для jsx -> babel-loader
         test: /\.tsx?$/, //укаазывается расширение файлов, которые надо обработать
-        use: "ts-loader", //название лоудера
+        use: [{
+            loader: 'ts-loader',
+            //чтобы просто сибирал ts, но не типизировал статически
+            options: {
+                transpileOnly: true,
+            }
+        }], 
         exclude: /node_modules/, //указывается то, что не обрабатывается
     }
 
@@ -31,7 +37,6 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
 
     const svgLoader = {
         test: /\.svg$/i,
-        // issuer: /\.[jt]sx?$/,
         use: [{ loader: '@svgr/webpack', options: { icon: true } }],
     }
 

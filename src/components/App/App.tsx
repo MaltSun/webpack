@@ -6,7 +6,9 @@ import princes from "@/assets/princess.png";
 import zebra from "@/assets/zebra.jpg";
 import Prince from "@/assets/prince.svg";
 
-
+function TODO(a: number){
+console.log(a)
+}
 export const App = () => {
   const [count, setCount] = useState<number>(0);
   function eventAdder() {
@@ -18,6 +20,7 @@ export const App = () => {
   }
   
 
+  TODO(1223)
   if(__PLATFORM__ === 'descktop'){
     return <div>ISDESKTOPPLAFORM</div>
   }

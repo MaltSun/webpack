@@ -2,8 +2,9 @@ import { Configuration, DefinePlugin } from "webpack";
 import { BuildOptions } from "./types/types";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
-import webpack from 'webpack'
-import path from "path";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
+
+
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 export function buildPlugins({ mode, platform, paths, analyzer }: BuildOptions): Configuration['plugins'] {
@@ -14,10 +15,16 @@ export function buildPlugins({ mode, platform, paths, analyzer }: BuildOptions):
         new HtmlWebpackPlugin({ template: paths.html }),
         new DefinePlugin({
             __PLATFORM__: JSON.stringify(platform)
-        })]
+        })
+    
+    ]
 
     if (isDev) {
-        plugins.push(new webpack.ProgressPlugin())
+        // plugins.push(new webpack.ProgressPlugin())
+        
+        //проверка типов остается,
+        // но она вынесена в отдельный процесс
+        new ForkTsCheckerWebpackPlugin()
     }
 
     if (isProd) {
