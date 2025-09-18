@@ -6,6 +6,7 @@ import princes from "@/assets/princess.png";
 import zebra from "@/assets/zebra.jpg";
 import Prince from "@/assets/prince.svg";
 
+
 export const App = () => {
   const [count, setCount] = useState<number>(0);
   function eventAdder() {
@@ -15,9 +16,19 @@ export const App = () => {
   function eventSub() {
     setCount(() => count - 1);
   }
+  
+
+  if(__PLATFORM__ === 'descktop'){
+    return <div>ISDESKTOPPLAFORM</div>
+  }
+
+   if(__PLATFORM__ === 'mobile'){
+    return <div>ISMOBILEPLAFORM</div>
+  }
 
   return (
     <div>
+      <h1>PLATFORM ={__PLATFORM__}</h1>
       <Link to={"/about"}></Link>
       <Link to={"/shop"}></Link>
       <h1>Counter</h1>

@@ -1,4 +1,4 @@
-import { Configuration } from "webpack";
+import { Configuration, DefinePlugin } from "webpack";
 import { BuildOptions } from "./types/types";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
@@ -6,11 +6,15 @@ import webpack from 'webpack'
 import path from "path";
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-export function buildPlugins(options: BuildOptions): Configuration['plugins'] {
-    const isDev = options.mode === 'development'
-    const isProd = options.mode === 'production'
+export function buildPlugins({ mode, platform, paths, analyzer }: BuildOptions): Configuration['plugins'] {
+    const isDev = mode === 'development'
+    const isProd = mode === 'production'
 
-    const plugins: Configuration['plugins'] = [new HtmlWebpackPlugin({ template: options.paths.html })]
+    const plugins: Configuration['plugins'] = [
+        new HtmlWebpackPlugin({ template: paths.html }),
+        new DefinePlugin({
+            __PLATFORM__: JSON.stringify(platform)
+        })]
 
     if (isDev) {
         plugins.push(new webpack.ProgressPlugin())
@@ -23,7 +27,7 @@ export function buildPlugins(options: BuildOptions): Configuration['plugins'] {
         }))
     }
 
-    if (options.analyzer) {
+    if (analyzer) {
         plugins.push(new BundleAnalyzerPlugin())
     }
 
