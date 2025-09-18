@@ -16,27 +16,45 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
 
     }
 
+    const tsLoader = {
+        //если бы не настроила работу с ts,
+        //то надо было бы доп. описывать лоадер для jsx -> babel-loader
+        test: /\.tsx?$/, //укаазывается расширение файлов, которые надо обработать
+        use: "ts-loader", //название лоудера
+        exclude: /node_modules/, //указывается то, что не обрабатывается
+    }
+
+    const assetsLoader = {
+        test: /\.(png|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+    }
+
+    const svgLoader = {
+        test: /\.svg$/i,
+        // issuer: /\.[jt]sx?$/,
+        use: [{ loader: '@svgr/webpack', options: { icon: true } }],
+    }
+
+    const scssLoader = {
+        test: /\.s[ac]ss$/i,
+        use: [
+            //"style-loader",
+            isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+
+            // Translates CSS into CommonJS
+            cssLoaderWithModules,
+
+            // Compiles Sass to CSS
+            "sass-loader",
+        ],
+    }
+
     return [
         //работа с scss
-        {
-            test: /\.s[ac]ss$/i,
-            use: [
-                //"style-loader",
-                isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+        svgLoader,
+        assetsLoader,
+        scssLoader,
+        tsLoader
 
-                // Translates CSS into CommonJS
-                cssLoaderWithModules,
-
-                // Compiles Sass to CSS
-                "sass-loader",
-            ],
-        },
-        {
-            //если бы не настроила работу с ts,
-            //то надо было бы доп. описывать лоадер для jsx -> babel-loader
-            test: /\.tsx?$/, //укаазывается расширение файлов, которые надо обработать
-            use: "ts-loader", //название лоудера
-            exclude: /node_modules/, //указывается то, что не обрабатывается
-        },
     ]
 }

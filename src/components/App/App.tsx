@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import classes from "./App.module.scss";
 import { Link, Outlet } from "react-router-dom";
 import { LazyAbout } from "@/components/pages/about/About.lazy";
+import princes from "@/assets/princess.png";
+import zebra from "@/assets/zebra.jpg";
+import Prince from "@/assets/prince.svg";
 
 export const App = () => {
   const [count, setCount] = useState<number>(0);
@@ -23,7 +26,13 @@ export const App = () => {
       <button className={classes.button} onClick={eventAdder}>
         +
       </button>
-      <LazyAbout />
+      <div>
+        Images
+        <img src={princes} alt="" />
+        <img src={zebra} alt="" />
+     
+        <Prince width={500} height={500} color={'red'} />
+      </div>
     </div>
   );
 };
