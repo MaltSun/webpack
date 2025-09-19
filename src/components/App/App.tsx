@@ -6,8 +6,11 @@ import princes from "@/assets/princess.png";
 import zebra from "@/assets/zebra.jpg";
 import Prince from "@/assets/prince.svg";
 
-function TODO(a: number){
-console.log(a)
+function TODO(a: number) {
+  TODO2();
+}
+function TODO2() {
+  throw new Error();
 }
 export const App = () => {
   const [count, setCount] = useState<number>(0);
@@ -17,21 +20,21 @@ export const App = () => {
 
   function eventSub() {
     setCount(() => count - 1);
-  }
-  
-
-  TODO(1223)
-  if(__PLATFORM__ === 'descktop'){
-    return <div>ISDESKTOPPLAFORM</div>
+    TODO(2);
   }
 
-   if(__PLATFORM__ === 'mobile'){
-    return <div>ISMOBILEPLAFORM</div>
-  }
+  // TODO(1223);
+  // if (__PLATFORM__ === "descktop") {
+  //   return <div>ISDESKTOPPLAFORM</div>;
+  // }
+
+  // if (__PLATFORM__ === "mobile") {
+  //   return <div>ISMOBILEPLAFORM</div>;
+  // }
 
   return (
-    <div data-testid={'App'}>
-      <h1 data-testid={'platform'}>PLATFORM ={__PLATFORM__}</h1>
+    <div data-testid={"App"}>
+      <h1 data-testid={"platform"}>PLATFORM ={__PLATFORM__}</h1>
       <Link to={"/about"}></Link>
       <Link to={"/shop"}></Link>
       <h1>Counter</h1>
@@ -44,8 +47,7 @@ export const App = () => {
         Images
         <img src={princes} alt="" />
         <img src={zebra} alt="" />
-     
-        <Prince width={500} height={500} color={'red'} />
+        <Prince width={500} height={500} color={"red"} />
       </div>
     </div>
   );
