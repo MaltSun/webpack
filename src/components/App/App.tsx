@@ -30,8 +30,8 @@ export const App = () => {
   }
 
   return (
-    <div>
-      <h1>PLATFORM ={__PLATFORM__}</h1>
+    <div data-testid={'App'}>
+      <h1 data-testid={'platform'}>PLATFORM ={__PLATFORM__}</h1>
       <Link to={"/about"}></Link>
       <Link to={"/shop"}></Link>
       <h1>Counter</h1>
