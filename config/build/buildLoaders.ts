@@ -3,6 +3,7 @@ import { BuildOptions } from "./types/types";
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import { before } from "node:test";
 import ReactRefreshTypeScript from 'react-refresh-typescript'
+import { buildBabelLoader } from "./babel/buildBabelLoader";
 export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     const isDev = options.mode === 'development'
 
@@ -26,11 +27,11 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
             //чтобы просто сибирал ts, но не типизировал статически
             options: {
                 transpileOnly: true,
-                getCustomTransformers:()=>({
+                getCustomTransformers: () => ({
                     before: [isDev && ReactRefreshTypeScript()].filter(Boolean)
                 })
             }
-        }], 
+        }],
         exclude: /node_modules/, //указывается то, что не обрабатывается
     }
 
@@ -58,12 +59,16 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         ],
     }
 
+    //babel loader, который мы вынесли в отдельный файл,
+    //для комфортной работы и деструктуризации
+    const babelLoader = buildBabelLoader(options)
+
     return [
         //работа с scss
         svgLoader,
         assetsLoader,
         scssLoader,
-        tsLoader
-
+        // tsLoader
+        babelLoader
     ]
 }
