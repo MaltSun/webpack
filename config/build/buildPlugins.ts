@@ -27,11 +27,8 @@ export function buildPlugins({ mode, platform, paths, analyzer }: BuildOptions):
     if (isDev) {
         // plugins.push(new webpack.ProgressPlugin())
 
-        //проверка типов остается,
-        // но она вынесена в отдельный процесс
         plugins.push(new ForkTsCheckerWebpackPlugin())
 
-        //чтобы норм обновлялось без перезагрузки
         plugins.push(new ReactRefreshPlugin())
     }
 

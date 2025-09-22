@@ -11,14 +11,14 @@ export function buildWebpack(options : BuildOptions): webpack.Configuration {
   const isDev = options.mode === 'development'
   
   return {
-    mode: mode ?? "development", // в каком режиме сборка продакшн/разработка
+    mode: mode ?? "development", 
 
     entry: paths.entry,
     
     output: {
       path: paths.output,
       filename: "[name].[contenthash].js",
-      clean: true, //очищение папки build перед тем как положить новый бандл
+      clean: true, 
     },
 
     plugins: buildPlugins(options),
@@ -29,7 +29,7 @@ export function buildWebpack(options : BuildOptions): webpack.Configuration {
 
     resolve: buildResolvers(options),
 
-    //
+    
     devtool: isDev ? 'inline-source-map' : 'source-map',
     devServer: isDev ? buildDevServer(options) : undefined,
 
