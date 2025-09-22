@@ -19,12 +19,9 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
     }
 
     const tsLoader = {
-        //если бы не настроила работу с ts,
-        //то надо было бы доп. описывать лоадер для jsx -> babel-loader
-        test: /\.tsx?$/, //укаазывается расширение файлов, которые надо обработать
+        test: /\.tsx?$/,
         use: [{
             loader: 'ts-loader',
-            //чтобы просто сибирал ts, но не типизировал статически
             options: {
                 transpileOnly: true,
                 getCustomTransformers: () => ({
@@ -32,7 +29,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
                 })
             }
         }],
-        exclude: /node_modules/, //указывается то, что не обрабатывается
+        exclude: /node_modules/,
     }
 
     const assetsLoader = {
@@ -59,16 +56,13 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
         ],
     }
 
-    //babel loader, который мы вынесли в отдельный файл,
-    //для комфортной работы и деструктуризации
     const babelLoader = buildBabelLoader(options)
 
     return [
-        //работа с scss
         svgLoader,
         assetsLoader,
         scssLoader,
-        // tsLoader
-        babelLoader
+        tsLoader
+        // babelLoader
     ]
 }

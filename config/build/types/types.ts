@@ -1,5 +1,3 @@
-import { Mode } from "fs";
-
 export interface BuildPaths {
     entry: string;
     html: string;
@@ -8,6 +6,7 @@ export interface BuildPaths {
     public: string
 }
 export type BuildMode = 'production' | 'development';
+
 export type BuildPlatform = 'mobile' | 'desktop';
 
 export interface BuildOptions {

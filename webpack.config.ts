@@ -1,8 +1,5 @@
 import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import webpack from "webpack";
-import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
-import MiniCssExtractPlugin from "mini-css-extract-plugin"
 import { buildWebpack } from "./config/build/buildWebpack";
 import { BuildMode, BuildPaths, BuildPlatform } from "./config/build/types/types";
 // type Mode = 'production' | 'development'
@@ -32,7 +29,7 @@ export default (env: EnvVariables) => {
     platform: env.platform ?? 'desktop'
   })
   // {
-  //   mode: env.mode ?? "development", // в каком режиме сборка продакшн/разработка
+  //   mode: env.mode ?? "development", // в каком режиме сборка 
 
   //   entry: path.resolve(__dirname, "src", "index.tsx"),
   //   //entry:{ если точек входа много
